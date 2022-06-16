@@ -1,0 +1,23 @@
+.output-window {
+    width: 100%;
+    height: calc(100vh - 16rem);
+    background: #fff;
+    border: 0.05rem solid #bcc3ce;
+    border-radius: 0.1rem;
+    color: #3b4351;
+    display: block;
+    padding: 0.5em 0.5rem;
+    font-size: 0.75rem;
+    overflow-y: auto;
+}
+.output-window .output-msg {
+    width: 100%;
+    height: fit-content;
+    display: inline-block;
+}
+.output-window .output-cmd::before {
+    content: "> ";
+    user-select: none;
+    color: #3b4351;
+    font-weight: bold;
+}

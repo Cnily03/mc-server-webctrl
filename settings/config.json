@@ -1,0 +1,17 @@
+{
+  "minecraft": {
+    "server": {
+      "rootDir": "D:/Games/Minecraft/Servers/test",
+      "local_host": "127.0.0.1",
+      "rcon": {
+        "password": "gohi_win666",
+        "port": 25575
+      }
+    }
+  },
+  "web": {
+    "title": {
+      "zh_cn": "Minecraft服务器Web控制端"
+    }
+  }
+}

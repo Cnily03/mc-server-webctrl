@@ -1,0 +1,129 @@
+* {
+    --sidebar-width: 200px;
+}
+body {
+    padding-top: 3rem;
+    padding-bottom: 8px;
+    margin-right: 8px;
+}
+@media screen and (min-width: 680px) {
+    body {
+        margin-left: calc(var(--sidebar-width) + 8px);
+        transition: margin 0.25s;
+    }
+    .navbar {
+        left: calc(var(--sidebar-width) + 8px);
+        transition: left 0.25s;
+    }
+    #sidebar-btn-show {
+        display: none;
+    }
+    .sidebar {
+        transform: translateX(0%) !important;
+    }
+}
+@media screen and (max-width: 680px) {
+    body {
+        margin-left: 8px;
+    }
+    .navbar {
+        left: 8px !important;
+    }
+    #sidebar-btn-show {
+        display: inline-block;
+    }
+}
+.navbar {
+    padding: 0.5rem 0.6rem;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+}
+.navbar .navbar-brand {
+    color: #5755d9;
+}
+.sidebar {
+    position: fixed;
+    z-index: 999;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    background-color: #fff;
+    padding: 0;
+    border-right: #bcc3ce 1px solid;
+    transform: translateX(-100%);
+    transition: transform 0.25s;
+}
+.sidebar:target {
+    transform: translateX(0%);
+}
+.hide-sidebar {
+    display: none;
+    cursor: default;
+}
+.sidebar:target ~ .hide-sidebar {
+    display: block;
+    z-index: 998;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(48, 55, 66, 0.3);
+    border-color: transparent;
+    border-radius: 0;
+}
+.sidebar .sidebar-title {
+    position: relative;
+    display: inline-block;
+    padding: 0.75rem 0;
+    height: 3.5rem;
+    width: 100%;
+    color: #5755d9;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+}
+.sidebar .sidebar-content {
+    position: relative;
+    display: inline-block;
+    height: calc(100% - 3.5rem);
+    width: 100%;
+    padding-bottom: 0.5rem;
+    overflow-y: auto;
+}
+.sidebar-button {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+    height: min-content;
+    padding: 10px 20px;
+    text-align: left;
+    background-color: #fff;
+    color: #455060;
+}
+.sidebar-button:hover,
+.sidebar-button:focus {
+    background-color: #f3f4f5;
+    color: #455060;
+    cursor: pointer;
+}
+.sidebar-button.active {
+    background-color: #e8e8e8 !important;
+    color: #455060 !important;
+}
+
+.page-name {
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.page-box {
+    margin: 2rem 1rem 1rem 1rem;
+}

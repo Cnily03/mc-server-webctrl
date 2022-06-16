@@ -1,0 +1,567 @@
+{
+  "allow-flight": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "允许飞行"
+    },
+    "description": {
+      "zh_cn": "允许玩家在安装添加飞行功能的mod前提下在生存模式下飞行"
+    }
+  },
+  "allow-nether": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "启用地狱"
+    },
+    "description": {
+      "zh_cn": "允许玩家进入下界"
+    }
+  },
+  "broadcast-console-to-ops": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "将控制台输出广播给OP"
+    },
+    "description": {
+      "zh_cn": "向所有在线OP发送所执行命令的输出"
+    }
+  },
+  "broadcast-rcon-to-ops": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "将RCON输出广播给OP"
+    },
+    "description": {
+      "zh_cn": "向所有在线OP发送通过RCON执行的命令的输出"
+    }
+  },
+  "difficulty": {
+    "type": "select",
+    "available_values": [
+      "peaceful",
+      "easy",
+      "normal",
+      "hard"
+    ],
+    "default": "easy",
+    "translate": {
+      "zh_cn": "游戏难度"
+    },
+    "description": {
+      "zh_cn": "定义服务器的游戏难度"
+    }
+  },
+  "enable-command-block": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "启用命令方块"
+    },
+    "description": {
+      "zh_cn": "若为false，命令方块的命令将不被执行"
+    }
+  },
+  "enable-jmx-monitoring": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "启用 JMX Monitor"
+    },
+    "description": {
+      "zh_cn": "暴露一个具有对象名 net.minecraft.server:type=Server 的 MBean 和两个属性（averageTickTime 和 tickTimes）用于暴露以毫秒为单位的tick时间"
+    }
+  },
+  "enable-query": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "启用监听"
+    },
+    "description": {
+      "zh_cn": "允许使用 GameSpy4 协议的服务器监听器。用于获取服务器信息"
+    }
+  },
+  "enable-rcon": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "启用 RCON"
+    },
+    "description": {
+      "zh_cn": "允许远程访问服务器控制台"
+    }
+  },
+  "enable-status": {
+    "type": "boolean",
+    "default": true,
+    "translate": {
+      "zh_cn": "显示服务器状态"
+    },
+    "description": {
+      "zh_cn": "使服务器在服务器列表中看起来是“在线”的"
+    }
+  },
+  "enforce-secure-profile": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "强制安全验证"
+    },
+    "description": {
+      "zh_cn": "要求玩家必须具有Mojang签名的公钥才能进入服务器"
+    }
+  },
+  "enforce-whitelist": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "强制白名单"
+    },
+    "description": {
+      "zh_cn": "在服务器上强制执行白名单"
+    }
+  },
+  "entity-broadcast-range-percentage": {
+    "type": "number",
+    "default": 100,
+    "translate": {
+      "zh_cn": "实体渲染距离百分比"
+    },
+    "description": {
+      "zh_cn": "此选项控制实体需要距离玩家有多近才会将数据包发送给客户端。更高的数值意味着实体可以在更远的地方就被渲染，同时也可能提高增加延迟的概率。数据值为默认值的百分比（可选值：整数10 ~ 1000）"
+    }
+  },
+  "force-gamemode": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "强制游戏模式"
+    },
+    "description": {
+      "zh_cn": "强制玩家加入时为默认游戏模式"
+    }
+  },
+  "function-permission-level": {
+    "type": "select",
+    "default": 2,
+    "available_values": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "translate": {
+      "zh_cn": "函数权限等级"
+    },
+    "description": {
+      "zh_cn": "设定函数的默认权限等级（Permission Levl）"
+    }
+  },
+  "gamemode": {
+    "type": "select",
+    "available_values": [
+      "survival",
+      "creative",
+      "adventure",
+      "spectator"
+    ],
+    "default": "survival",
+    "translate": {
+      "zh_cn": "默认游戏模式"
+    },
+    "description": {
+      "zh_cn": "定义默认游戏模式"
+    }
+  },
+  "generate-structures": {
+    "type": "boolean",
+    "default": true,
+    "translate": {
+      "zh_cn": "生成结构"
+    },
+    "description": {
+      "zh_cn": "定义是否能在新加载的区块中生成结构（例如村庄、沉船等）"
+    }
+  },
+  "generator-settings": {
+    "type": "long",
+    "default": "{}",
+    "translate": {
+      "zh_cn": "自定义生成器"
+    },
+    "description": {
+      "zh_cn": "用于自定义世界（如超平坦）的生成的配置"
+    }
+  },
+  "hardcore": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "硬核模式"
+    },
+    "description": {
+      "zh_cn": "若为true，服务器难度的设置会被忽略并且设为 hard（困难），玩家在死后会自动切换至旁观模式"
+    }
+  },
+  "hide-online-players": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "隐藏在线玩家"
+    },
+    "description": {
+      "zh_cn": "若为true，服务端在响应客户端状态请求时不会返回在线玩家列表"
+    }
+  },
+  "level-name": {
+    "type": "plain",
+    "default": "world",
+    "translate": {
+      "zh_cn": "世界名称"
+    },
+    "description": {
+      "zh_cn": "世界名称及其对应的文件夹名"
+    }
+  },
+  "level-seed": {
+    "type": "plain",
+    "default": "",
+    "translate": {
+      "zh_cn": "世界种子"
+    },
+    "description": {
+      "zh_cn": "游戏世界的种子"
+    }
+  },
+  "level-type": {
+    "type": "select",
+    "available_values": [
+      "minecraft:normal",
+      "minecraft:flat",
+      "minecraft:large_biomes",
+      "minecraft:amplified",
+      "minecraft:single_biome_surface"
+    ],
+    "default": "minecraft:normal",
+    "translate": {
+      "zh_cn": "世界类型"
+    },
+    "description": {
+      "zh_cn": "以何种方式生成世界（如超平坦、最大化等）"
+    }
+  },
+  "max-chained-neighbor-updates": {
+    "type": "number",
+    "default": 1000000,
+    "translate": {
+      "zh_cn": "最大连锁NC更新数量"
+    },
+    "description": {
+      "zh_cn": "最大连锁NC更新的数量，超过此数量的连锁NC更新会被跳过（负数表示无限制）"
+    }
+  },
+  "max-players": {
+    "type": "number",
+    "default": 10,
+    "translate": {
+      "zh_cn": "最大玩家数"
+    },
+    "description": {
+      "zh_cn": "服务器同时能容纳的最大玩家数量（可选值：整数0 ~ 2147483647）"
+    }
+  },
+  "max-tick-time": {
+    "type": "number",
+    "default": 60000,
+    "translate": {
+      "zh_cn": "最大Tick时间"
+    },
+    "description": {
+      "zh_cn": "每个tick花费的最大毫秒数。超过该毫秒数时，服务器看门狗将停止服务器程序（可选值：整数0 ~ 2^63-1）"
+    }
+  },
+  "max-world-size": {
+    "type": "number",
+    "default": 29999984,
+    "translate": {
+      "zh_cn": "最大世界大小"
+    },
+    "description": {
+      "zh_cn": "可让世界边界获得的最大半径值，单位为方块，服务器看门狗将停止服务器程序（可选值：整数1 ~ 29999984）"
+    }
+  },
+  "motd": {
+    "type": "long",
+    "default": "A Minecraft Server",
+    "translate": {
+      "zh_cn": "服务器信息"
+    },
+    "description": {
+      "zh_cn": "多人游戏服务器列表中显示的服务器信息"
+    }
+  },
+  "network-compression-threshold": {
+    "type": "number",
+    "default": 256,
+    "translate": {
+      "zh_cn": "数据压缩阈字节数"
+    },
+    "description": {
+      "zh_cn": "若发送的数据包超过（含）该值，将对数据包进行压缩（若为-1，完全禁用数据包压缩；若为0，压缩全部数据包）"
+    }
+  },
+  "online-mode": {
+    "type": "boolean",
+    "default": true,
+    "translate": {
+      "zh_cn": "正版验证"
+    },
+    "description": {
+      "zh_cn": "让服务器对比Minecraft账户数据库验证登录信息"
+    }
+  },
+  "op-permission-level": {
+    "type": "number",
+    "default": 4,
+    "translate": {
+      "zh_cn": "OP权限等级"
+    },
+    "description": {
+      "zh_cn": "设定使用/op命令时OP的权限等级"
+    }
+  },
+  "player-idle-timeout": {
+    "type": "number",
+    "default": 0,
+    "translate": {
+      "zh_cn": "允许的玩家挂机时间"
+    },
+    "description": {
+      "zh_cn": "若不为0，服务器将在玩家的空闲时间达到该值（单位为分钟）时将玩家踢出服务器"
+    }
+  },
+  "prevent-proxy-connections": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "禁用代理连接"
+    },
+    "description": {
+      "zh_cn": "禁止玩家使用虚拟专用网络或代理连接服务器。若为true，当服务器发送的ISP/AS和Mojang的验证服务器的不一样时，玩家将会被踢出"
+    }
+  },
+  "previews-chat": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "启用聊天预览功能"
+    },
+    "description": {
+      "zh_cn": "启用聊天预览功能"
+    }
+  },
+  "pvp": {
+    "type": "boolean",
+    "default": true,
+    "translate": {
+      "zh_cn": "开启PvP"
+    },
+    "description": {
+      "zh_cn": "若为true，玩家间可以互相伤害（包括如射箭伤害自己）"
+    }
+  },
+  "query.port": {
+    "type": "number",
+    "default": 25565,
+    "translate": {
+      "zh_cn": "监听服务器的端口号"
+    },
+    "description": {
+      "zh_cn": "监听服务器的端口号（可选值：整数1 ~ 65534）"
+    }
+  },
+  "rate-limit": {
+    "type": "number",
+    "default": 0,
+    "translate": {
+      "zh_cn": "数据包限速"
+    },
+    "description": {
+      "zh_cn": "若不为0，当玩家发送的数据包数量超过该值时，玩家将被提出服务器"
+    }
+  },
+  "rcon.password": {
+    "type": "plain",
+    "default": "",
+    "translate": {
+      "zh_cn": "RCON访问密码"
+    },
+    "description": {
+      "zh_cn": "RCON远程访问的密码"
+    }
+  },
+  "rcon.port": {
+    "type": "number",
+    "default": 25575,
+    "translate": {
+      "zh_cn": "RCON访问端口"
+    },
+    "description": {
+      "zh_cn": "RCON远程访问的端口号（可选值：整数1 ~ 65534）"
+    }
+  },
+  "require-resource-pack": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "启用服务器资源包"
+    },
+    "description": {
+      "zh_cn": "若为true，玩家会被提示作出选择（是否启用服务器资源包），如果玩家拒绝则会被服务器断开连接"
+    }
+  },
+  "resource-pack": {
+    "type": "plain",
+    "default": "",
+    "translate": {
+      "zh_cn": "资源包链接"
+    },
+    "description": {
+      "zh_cn": "一个指向资源包的URI，玩家可选择是否使用该资源包"
+    }
+  },
+  "resource-pack-prompt": {
+    "type": "plain",
+    "default": "",
+    "translate": {
+      "zh_cn": "资源包提示界面信息"
+    },
+    "description": {
+      "zh_cn": "当且仅当require-resource-pack开启时，在资源包提示界面显示该自定义信息"
+    }
+  },
+  "resource-pack-sha1": {
+    "type": "plain",
+    "default": "",
+    "translate": {
+      "zh_cn": "资源包的SHA-1值"
+    },
+    "description": {
+      "zh_cn": "资源包的SHA-1值，用于提高资源包缓存的有效性和可靠性"
+    }
+  },
+  "server-ip": {
+    "type": "plain",
+    "default": "",
+    "translate": {
+      "zh_cn": "服务器绑定IP"
+    },
+    "description": {
+      "zh_cn": "将服务器与一个特定IP绑定"
+    }
+  },
+  "server-port": {
+    "type": "number",
+    "default": 25565,
+    "translate": {
+      "zh_cn": "服务器端口"
+    },
+    "description": {
+      "zh_cn": "服务器（监听的）端口号（可选值：整数1 ~ 65534）"
+    }
+  },
+  "simulation-distance": {
+    "type": "number",
+    "default": 10,
+    "translate": {
+      "zh_cn": "模拟距离"
+    },
+    "description": {
+      "zh_cn": "服务端可更新实体范围的最大值，即玩家各个方向上的区块数量（以玩家为中心的球体）。超出此范围的实体不会被更新，对玩家也不可见"
+    }
+  },
+  "spawn-animals": {
+    "type": "boolean",
+    "default": true,
+    "translate": {
+      "zh_cn": "允许生成动物"
+    },
+    "description": {
+      "zh_cn": "决定动物是否可以生成"
+    }
+  },
+  "spawn-monsters": {
+    "type": "boolean",
+    "default": true,
+    "translate": {
+      "zh_cn": "允许生成怪物"
+    },
+    "description": {
+      "zh_cn": "决定攻击型生物（怪物）是否可以生成"
+    }
+  },
+  "spawn-npcs": {
+    "type": "boolean",
+    "default": true,
+    "translate": {
+      "zh_cn": "允许生成NPC"
+    },
+    "description": {
+      "zh_cn": "决定是否生成村民"
+    }
+  },
+  "spawn-protection": {
+    "type": "number",
+    "default": 16,
+    "translate": {
+      "zh_cn": "出生点保护"
+    },
+    "description": {
+      "zh_cn": "设置为n会保护以出生点为中心的(2n+1)×(2n+1)方块的区域"
+    }
+  },
+  "sync-chunk-writes": {
+    "type": "boolean",
+    "default": true,
+    "translate": {
+      "zh_cn": "同步式区块写入"
+    },
+    "description": {
+      "zh_cn": "区块文件以同步模式写入"
+    }
+  },
+  "use-native-transport": {
+    "type": "boolean",
+    "default": true,
+    "translate": {
+      "zh_cn": "使用本地传输"
+    },
+    "description": {
+      "zh_cn": "启用Linux数据包收发优化"
+    }
+  },
+  "view-distance": {
+    "type": "number",
+    "default": 10,
+    "translate": {
+      "zh_cn": "可视距离"
+    },
+    "description": {
+      "zh_cn": "服务端发送给客户端的世界数据量，即玩家各个方向上的区块数量（以玩家为中心的球体），该值决定了服务端的可视距离（可选值：整数3 ~ 32）"
+    }
+  },
+  "white-list": {
+    "type": "boolean",
+    "default": false,
+    "translate": {
+      "zh_cn": "启用白名单"
+    },
+    "description": {
+      "zh_cn": "启用服务器的白名单，只有OP或whitelist.json文件中的玩家才可加入服务器"
+    }
+  }
+}

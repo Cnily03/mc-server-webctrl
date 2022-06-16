@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% const page_name = sidebar_info[page_id].name[lang] %>
+    <% title=title[lang] %>
+    <title><%= page_name %> - <%= title %></title>
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <link rel="stylesheet" href="/stylesheets/common.css">
+    <link rel="stylesheet" href="/stylesheets/rcon.css">
+    <script src="/javascripts/utils/http-request.js"></script>
+    <script src="/javascripts/utils/visual-form-data.js"></script>
+    <script src="/javascripts/rcon.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <section class="navbar-section">
+            <a id="sidebar-btn-show" class="off-canvas-toggle btn btn-link btn-action mr-2" href="#sidebar"><i
+                    class="icon icon-menu"></i></a>
+            <a href="<%= sidebar_info[page_id].href %>" target="_parent"
+                class="page-name navbar-brand mr-2"><%= page_name %></a>
+            <a href="https://github.com/cnily03" target="_blank" class="btn btn-link">GitHub</a>
+        </section>
+        <section class="navbar-section">
+            <div class="input-group input-inline">
+                <input class="form-input" type="text" placeholder="search">
+                <button class="btn btn-primary input-group-btn">Search</button>
+            </div>
+        </section>
+    </header>
+    <!-- SideBar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-title">
+            <div style="padding: .25rem 0;">MC Web Ctrl</div>
+        </div>
+        <div class="sidebar-content">
+            <% for (function_id in sidebar_info) { %>
+            <% const function_info = sidebar_info[function_id] %>
+            <% if(function_info.name[lang]==page_name) { %>
+            <div class="sidebar-button active" onclick="window.location='<%= function_info.href %>'">
+                <span><%= function_info.name[lang] %></span>
+            </div>
+            <% } else { %>
+            <div class="sidebar-button" onclick="window.location='<%= function_info.href %>'">
+                <span><%= function_info.name[lang] %></span>
+            </div>
+            <% } %>
+            <% } %>
+        </div>
+    </div>
+    <a class="hide-sidebar" href="##"></a>
+    <!-- Main -->
+    <div class="page-box">
+        <div id="output-window" class="output-window"></div>
+        <div id="rcon-input" class="input-group has-icon-left">
+            <input class="form-input" type="text" placeholder="在此键入指令">
+            <i class="form-icon icon icon-arrow-right"></i>
+            <button class="btn btn-primary">发送</button>
+        </div>
+        <span class="form-switch" id="option_clear-input">
+            <label>
+                <input type="checkbox" checked><i class="form-icon"></i>
+            </label>
+            <span>指令发送后清空输入框</span>
+        </span>
+    </div>
+</body>
+
+</html>

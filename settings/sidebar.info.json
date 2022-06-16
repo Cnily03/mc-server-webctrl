@@ -1,0 +1,14 @@
+{
+  "server_properties": {
+    "name": {
+      "zh_cn": "服务器属性"
+    },
+    "href": "/"
+  },
+  "rcon": {
+    "name": {
+      "zh_cn": "RCON远程控制"
+    },
+    "href": "/rcon"
+  }
+}
