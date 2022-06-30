@@ -58,7 +58,7 @@ router.post(root + "/changeServerProperties", async (ctx, next) => {
 
 /** McRcon */
 const McRcon = new Rcon(
-    USER_CONFIG.minecraft.server.local_host,
+    USER_CONFIG.minecraft.server.rcon.host,
     USER_CONFIG.minecraft.server.rcon.port,
     USER_CONFIG.minecraft.server.rcon.password
 );

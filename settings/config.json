@@ -1,7 +1,10 @@
 {
+  "server": {
+    "port": 2022
+  },
   "minecraft": {
     "server": {
-      "rootDir": "/home/server",
+      "rootDir": "/home/mc-server-dir",
       "local_host": "127.0.0.1",
       "rcon": {
         "host": "127.0.0.1",

@@ -10,7 +10,7 @@ const Router = require("koa-router");
 const colors = require('colors');
 
 const app = new Koa();
-const SERVER_PORT = 2022;
+const SERVER_PORT = USER_CONFIG.server.port;
 
 // colors
 colors.setTheme({
