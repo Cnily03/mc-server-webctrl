@@ -28,12 +28,11 @@ window.addEventListener('DOMContentLoaded', () => {
         const form_data = new VisualFormData(document.querySelector("#form-server-properties"));
         form_data.set("generator-settings", form_data.get("generator-settings").replace(/\r?\n/g, ""))
         const form_json = form_data.getJSONData();
-        const httpReq = new HttpRequest({
+        new HttpRequest({
             url: "/request/changeServerProperties",
             method: "POST",
             data: JSON.stringify(form_json),
             contentType: "text/plain"
-        });
-        httpReq.post();
+        }).send()
     })
 })
