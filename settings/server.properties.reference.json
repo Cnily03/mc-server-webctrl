@@ -11,7 +11,7 @@
   },
   "allow-nether": {
     "type": "boolean",
-    "default": false,
+    "default": true,
     "translate": {
       "zh_cn": "启用地狱"
     },
@@ -21,7 +21,7 @@
   },
   "broadcast-console-to-ops": {
     "type": "boolean",
-    "default": false,
+    "default": true,
     "translate": {
       "zh_cn": "将控制台输出广播给OP"
     },
@@ -31,7 +31,7 @@
   },
   "broadcast-rcon-to-ops": {
     "type": "boolean",
-    "default": false,
+    "default": true,
     "translate": {
       "zh_cn": "将RCON输出广播给OP"
     },
@@ -266,7 +266,7 @@
   },
   "max-players": {
     "type": "number",
-    "default": 10,
+    "default": 20,
     "translate": {
       "zh_cn": "最大玩家数"
     },

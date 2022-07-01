@@ -2,12 +2,152 @@ const Router = require("koa-router");
 const router = new Router();
 const path = require("path");
 const fs = require("fs");
+const crypto = require("./utils/crypto");
 const Rcon = require("rcon/node-rcon");
 const root = "/request";
 
 const USER_CONFIG = require("../settings/config.json");
 
-/** Server Properties*/
+/** Login */
+const FormLogin = {
+    codeMap: {
+        // 登录成功
+        "200": "successfully",
+        // 用户名或密码错误
+        "400": "Invalid username or password",
+        // 未知错误
+        "-1": "Uncaught error",
+    },
+    getMsg: function getRcoMsg(code) {
+        return FormLogin.codeMap[code.toString()];
+    },
+    /**
+     * 生成返回数据
+     * @param {Number|String} code 
+     * @param {String} msg 
+     * @returns 
+     */
+    createResponse: function (code, msg = undefined) {
+        if (typeof code == "string") {
+            msg = code;
+            code = 200;
+        }
+        return {
+            code: code,
+            msg: typeof msg == "string" ? msg : FormLogin.getMsg(code),
+        }
+    }
+}
+const Token = {
+    MAX_AGE: 7 * 24 * 60 * 60
+}
+function verifyAccount(username, password_sha1, returnNickname = false) {
+    for (const accountdata of USER_CONFIG.web.account) {
+        if (
+            username == accountdata.username &&
+            password_sha1 == accountdata.password_sha1
+        ) {
+            if (returnNickname) return accountdata.nickname;
+            else return true;
+        }
+    }
+    return false;
+}
+function createToken(username, password_sha1, isRemember) {
+    return crypto.aes.encode(
+        username + "|" + password_sha1 + "|" + isRemember.toString() + "|" + new Date().getTime().toString(),
+        USER_CONFIG.web.cookie_aes.key,
+        USER_CONFIG.web.cookie_aes.iv,
+        USER_CONFIG.web.cookie_aes.algorithm
+    )
+}
+global.verifyToken = function (ctx, returnNickname = false) {
+    const token = ctx.cookies.get("token") || "";
+    const token_info_array = token ? crypto.aes.decode(
+        token,
+        USER_CONFIG.web.cookie_aes.key,
+        USER_CONFIG.web.cookie_aes.iv,
+        USER_CONFIG.web.cookie_aes.algorithm
+    ).split("|") : [];
+    // Token格式正确并且账密正确
+    if (token_info_array.length == 4) {
+        const result = verifyAccount(token_info_array[0], token_info_array[1], returnNickname);
+        if (result) {
+            // 更新 Cookie
+            const isRemember = { "true": true, "false": false }[token_info_array[2]] || false;
+            ctx.cookies.set("token", createToken(token_info_array[0], token_info_array[1], isRemember), {
+                maxAge: isRemember ? Token.MAX_AGE : -1,
+                signed: true,
+                path: "/",
+                overwrite: true
+            })
+            return result;
+        }
+    } else {
+        return false;
+    }
+}
+global.verifyTokenAndRedirect = function (ctx, returnNickname = false) {
+    const result = global.verifyToken(ctx, returnNickname);
+    if (!result)
+        ctx.redirect(
+            "/login?from=" +
+            encodeURIComponent(ctx.request.protocol + "://" + ctx.request.header.host + ctx.request.url)
+        );
+    return result;
+}
+global.verifyTokenForRequest = function (ctx) {
+    const result = global.verifyToken(ctx);
+    if (!result)
+        ctx.body = {
+            code: 400,
+            msg: "The token is invalid or out-of-date"
+        }
+    return result;
+}
+router.post(root + "/login/form", async (ctx, next) => {
+    try {
+        const userdata = JSON.parse(decodeURIComponent(crypto.base64.decode(ctx.request.body)));
+        userdata.password_sha1 = crypto.sha1.encode(userdata.password);
+        var isLoginSuccess = verifyAccount(userdata.username, userdata.password_sha1)
+        if (isLoginSuccess) {
+            ctx.cookies.set(
+                "token",
+                createToken(
+                    userdata.username,
+                    userdata.password_sha1,
+                    userdata["remember-me"]
+                ),
+                {
+                    maxAge: userdata["remember-me"] ? Token.MAX_AGE : -1,
+                    signed: true,
+                    path: "/",
+                    overwrite: true
+                }
+            );
+            ctx.body = FormLogin.createResponse(200);
+        } else {
+            ctx.body = FormLogin.createResponse(400);
+        }
+    } catch { ctx.body = FormLogin.createResponse(-1) }
+})
+
+router.post(root + "/login/token", async (ctx, next) => {
+    const token = ctx.request.body;
+    if (global.verifyToken(ctx)) {
+        ctx.body = {
+            code: 200,
+            msg: "successfully"
+        }
+    } else {
+        ctx.body = {
+            code: 400,
+            msg: "The token is invalid or out-of-date"
+        }
+    }
+})
+
+/** Server Properties */
 function encodeUTF8(text) {
     var encoded = "";
     const replaceMap = {
@@ -33,6 +173,7 @@ function encodeUTF8(text) {
 }
 
 router.post(root + "/changeServerProperties", async (ctx, next) => {
+    if (!global.verifyTokenForRequest(ctx)) return;
     // console.log(ctx.request.body);
     try {
         const propertiesJSON = JSON.parse(ctx.request.body);
@@ -149,6 +290,8 @@ async function sendCmdToMc(cmd) {
 }
 
 router.post(root + "/rcon", async (ctx, next) => {
+    if (!global.verifyTokenForRequest(ctx)) return;
+
     const query = JSON.parse(ctx.request.body)
     const command = query.cmd.trim();
     if (typeof command != "string")

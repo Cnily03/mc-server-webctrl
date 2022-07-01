@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title><%= subtitle[lang] %> - <%= translate["browser.title"] %></title>
+    <script type="text/javascript" src="/javascripts/utils/listen-footer.js"></script>
+    <script type="text/javascript" src="/javascripts/utils/http-request.js"></script>
+    <script type="text/javascript" src="/javascripts/utils/visual-form-data.js"></script>
+    <script type="text/javascript" src="/javascripts/login.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <link rel="stylesheet" href="/stylesheets/login.css">
+</head>
+
+<body>
+    <div class="div-bg"></div>
+    <div class="div-body">
+        <div class="login-bar" id="login-bar">
+            <div class="head" id="login-head">
+                <div class="title" id="login">
+                    <img src="/media/images/favicon.png" height="30" width="30"
+                        style="margin-right:.8rem; border-radius: .2rem;;">
+                    <div style="white-space:nowrap">登录</div>
+                </div>
+                <div class="tips" id="login-tips">
+                    <%- message %>
+                </div>
+            </div>
+            <form class="form-group" id="login" action="about:blank" target="invisible">
+                <label class="form-label input-title">用户名</label>
+                <input class="form-input" id="username" type="text" name="username" maxlength="10"
+                    placeholder="请在此输入用户名">
+                <label class="form-label input-title">密码</label>
+                <input class="form-input" id="password" type="password" name="password" maxlength="18"
+                    placeholder="请在此输入密码" oncontextmenu="return !!0" oncopy="return !!0" oncut="return!!0">
+                <label class="form-checkbox" id="remember-me">
+                    <input id="remember-me" type="checkbox" name="remember-me" checked>
+                    <i class="form-icon"></i>记住我
+                </label>
+                <div id="submit-box" style="width:100%;text-align:right">
+                    <button class="btn btn-primary" id="submit" type="submit">登录</button>
+                </div>
+            </form>
+        </div>
+        <iframe name="invisible" style="display:none"></iframe>
+        <footer>
+            <div class="footer-box">
+                <div>Copyright 2020 Jevon Wang - Minecraft Web Ctrl</div>
+                <div>
+                    <a href="https://github.com/cnily03/mc-server-webctrl" target="_blank">Source Code</a> under license
+                    <a href="https://github.com/cnily03/mc-server-webctrl/blob/master/LICENSE" target="_blank">MIT</a>
+                </div>
+            </div>
+        </footer>
+        <script id="script-footer" type="text/javascript">
+            window.loginBarEl = document.querySelector(".login-bar");
+            window.footerEl = document.querySelector("footer");
+            listenFooter(document.querySelector("footer"), window._justifyFooter = () => {
+                // calculate footer-top
+                let _loginBarBottom = loginBarEl.offsetHeight + loginBarEl.offsetTop + 15;
+                let _footerTop;
+                if (_loginBarBottom + footerEl.offsetHeight > document.documentElement.offsetHeight)
+                    _footerTop = _loginBarBottom;
+                else _footerTop = document.documentElement.offsetHeight - footerEl.offsetHeight;
+                // update --footer-top
+                document.documentElement.style.setProperty(
+                    "--footer-top",
+                    _footerTop + "px"
+                );
+            });
+            _justifyFooter();
+            document.querySelector("script#script-footer").remove();
+        </script>
+    </div>
+</body>
+
+</html>

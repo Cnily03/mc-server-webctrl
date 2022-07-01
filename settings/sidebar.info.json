@@ -1,9 +1,15 @@
 {
+  "homepage": {
+    "name": {
+      "zh_cn": "主页"
+    },
+    "href": "/"
+  },
   "server_properties": {
     "name": {
       "zh_cn": "服务器属性"
     },
-    "href": "/"
+    "href": "/properties"
   },
   "rcon": {
     "name": {

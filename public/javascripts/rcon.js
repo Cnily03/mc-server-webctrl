@@ -73,6 +73,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#rcon-input button").addEventListener("click", function () {
         const cmd = rconInputEl.value.trim();
         if (cmd) {
+            outputCmd(cmd);
             const httpRequest = new HttpRequest({
                 url: "/request/rcon",
                 method: "POST",
@@ -85,7 +86,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     if (Object.keys(xhr.response).includes("msg")) {
                         console.log("> " + cmd);
                         console.log(xhr.response.msg);
-                        outputCmd(cmd);
+                        // outputCmd(cmd);
                         output(xhr.response.msg, xhr.response.code)
                         if (xhr.response.isMemory)
                             rconCmdMemories.push(cmd);

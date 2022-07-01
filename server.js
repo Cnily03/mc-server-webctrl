@@ -10,6 +10,7 @@ const Router = require("koa-router");
 const colors = require('colors');
 
 const app = new Koa();
+app.keys = USER_CONFIG.web.token_signed_keys;
 const SERVER_PORT = USER_CONFIG.server.port;
 
 // colors
@@ -38,10 +39,14 @@ app.use(bodyParser({
 }));
 
 // routes
-const routers = {};
-routers.index = require("./routes/index");
-routers.request = require("./routes/request");
-routers.rcon = require("./routes/rcon");
+const routers = {
+    request: require("./routes/request"),
+    login: require("./routes/login"),
+    logout: require("./routes/logout"),
+    index: require("./routes/index"),
+    properties: require("./routes/properties"),
+    rcon: require("./routes/rcon"),
+};
 for (const _routeKey in routers) {
     app.use(routers[_routeKey].routes());//.use(routers[_routeKey].allowedMethods());
 }

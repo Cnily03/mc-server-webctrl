@@ -14,8 +14,21 @@
     }
   },
   "web": {
-    "title": {
-      "zh_cn": "Minecraft服务器Web控制端"
-    }
+    "token_signed_keys": [
+      "CHINA!",
+      "MEGA!"
+    ],
+    "cookie_aes": {
+      "key": "0123456789abcdef",
+      "iv": "0123456789abcdef",
+      "algorithm": "aes-128-cbc"
+    },
+    "account": [
+      {
+        "nickname": "Admin",
+        "username": "admin",
+        "password_sha1": "7c4a8d09ca3762af61e59520943dc26494f8941b"
+      }
+    ]
   }
 }

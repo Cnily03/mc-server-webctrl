@@ -1,0 +1,208 @@
+:root {
+    --footer-top: -100px;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Microsoft YaHei", sans-serif;
+}
+
+div.div-bg {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+
+    background: url(/media/images/minecraft-bg.jpg);
+    background-repeat: no-repeat, no-repeat;
+    background-position: center center, center center;
+    background-size: cover, cover;
+}
+
+div.div-body {
+    position: absolute;
+    z-index: 2;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+}
+
+@media screen and (min-width: 600px) and (min-height: 400px) {
+    /* div.div-bg {
+        background: url(/media/images/microsoft-bg.svg) no-repeat;
+        background-size: 100% 100%;
+    } */
+    div.login-bar {
+        position: absolute;
+        z-index: 6;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 600px), (max-height: 400px) {
+    /* div.div-bg {
+        background: #eee;
+    } */
+    div.login-bar {
+        position: absolute;
+        z-index: 6;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 120px auto 0 auto;
+    }
+}
+
+div.login-bar {
+    text-align: left;
+    width: 440px;
+    max-width: 90vw;
+    height: fit-content;
+    padding: 44px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 20%);
+    overflow: hidden;
+}
+
+div.head {
+    display: inline-flex;
+    align-items: flex-end;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-bottom: 0.5rem;
+}
+
+div.title {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    text-align: left;
+    letter-spacing: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    user-select: none;
+}
+
+div.tips#login-tips {
+    text-align: left;
+    min-height: 1.2rem;
+    font-size: 15px;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    width: fit-content;
+}
+
+label#remember-me {
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    /*touch-action: none;
+    -moz-touch-action: none;
+    -webkit-touch-action: none;
+    -ms-touch-action: none;
+    -moz-touch-action: none;
+    pointer-events: none;*/
+}
+
+.input-title {
+    font-size: 16px;
+    padding: 0.3rem 0 0.1rem 0;
+}
+
+.btn {
+    width: 100%;
+    cursor: pointer;
+    user-select: none;
+}
+
+#submit {
+    width: 120px;
+    max-width: 100%;
+    border-radius: 0%;
+    transition: background 0.2s, border 0.2s, box-shadow 0.2s, color 0.2s,
+        transform 0.2s !important;
+}
+
+#submit:active {
+    transform: scale(0.95);
+}
+
+footer {
+    width: 100%;
+    position: absolute;
+    z-index: 9;
+    height: fit-content;
+    top: var(--footer-top);
+    /* bottom: 0; */
+    left: 0;
+    right: 0;
+    padding: 0 5%;
+    margin: 0 auto;
+    background-color: rgb(0 0 0 / 50%);
+    color: #bbb;
+}
+footer a {
+    color: #bbb !important;
+    transition: color ease 0.25s;
+}
+footer a:hover,
+footer a:focus {
+    color: #ddd !important;
+    box-shadow: none;
+}
+
+.footer-box {
+    letter-spacing: 20px;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: justify;
+    text-align-last: justify;
+    text-justify: distribute-all-lines;
+}
+
+.footer-box > div {
+    display: inline-block;
+    width: fit-content;
+    font-size: 15px;
+    letter-spacing: normal;
+    text-align: left;
+    text-align-last: auto;
+    text-justify: auto;
+}
+
+.form-input {
+    border-width: 0 0 0.05rem 0 !important;
+    border-radius: 0;
+    outline-color: transparent;
+    box-shadow: none !important;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0 0.2em;
+    background-color: transparent !important;
+}
+
+.form-input.is-error:focus,
+.has-error .form-input:focus {
+    box-shadow: rgb(232 86 0 / 20%) 0px 3px 0px !important;
+}
+
+.form-input.is-success:focus,
+.has-success .form-input:focus {
+    box-shadow: rgb(50 182 67 / 20%) 0px 3px 0px !important;
+}

@@ -2,7 +2,7 @@
     --sidebar-width: 200px;
 }
 body {
-    padding-top: 3rem;
+    padding-top: 4rem;
     padding-bottom: 8px;
     margin-right: 8px;
 }
@@ -44,6 +44,10 @@ body {
 .navbar .navbar-brand {
     color: #5755d9;
 }
+.navbar a#nickname:focus {
+    box-shadow: none;
+}
+
 .sidebar {
     position: fixed;
     z-index: 999;
@@ -125,5 +129,5 @@ body {
 }
 
 .page-box {
-    margin: 2rem 1rem 1rem 1rem;
+    margin: 1rem 1rem 1rem 1rem;
 }

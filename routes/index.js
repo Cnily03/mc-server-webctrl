@@ -2,54 +2,52 @@ const Router = require("koa-router");
 const router = new Router();
 const path = require("path");
 const fs = require("fs");
+const showdown = require("showdown");
+const readFile = require("./utils/readFile");
 const root = "/";
 
 const USER_CONFIG = require("../settings/config.json");
 
-function decodeUTF8(text) { return eval("`" + text + "`") }
-
-async function getMCServerProperties() {
-    const server_properties_path = path.resolve(USER_CONFIG.minecraft.server.rootDir, "./server.properties");
-    return await new Promise((resolve) => {
-        fs.readFile(server_properties_path, 'utf8', (err, data) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            const lineTextArray = data.replace(/#.*\r?\n/g, "").split(/\r?\n/);
-            const server_properties = {};
-            for (const line_text of lineTextArray) {
-                if (line_text.includes("=")) {
-                    let construction = line_text.split("=");
-                    server_properties[construction[0]] = decodeUTF8(construction[1]);
-                }
-            }
-            resolve(server_properties);
-        })
-    })
-}
-
-async function readFile(file_path) {
-    file_path = path.resolve(__dirname, file_path);
-    return await new Promise((resolve) => {
-        fs.readFile(file_path, 'utf8', (err, data) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            resolve(data);
-        })
-    })
-}
-
 router.get(root, async (ctx, next) => {
+    const nickname = global.verifyToken(ctx, true);
+
+    const mdConverter = new showdown.Converter();
+    mdConverter.setOption('tables', true);
+    mdConverter.setOption('tasklists', true);
+
+    const cards_path = path.resolve(__dirname, "../settings/cards");
+    const card_files = fs.readdirSync(cards_path);
+    var md_files = [];
+    for (const filename of card_files) {
+        let splited_fn = filename.split(".");
+        if (splited_fn.length >= 2 && splited_fn[splited_fn.length - 1] == "md") {
+            splited_fn.pop();
+            md_files.push(splited_fn.join("."));
+        }
+    }
+    const cards_info = {}; let i = 0, padstart_len = md_files.length.toString().length;
+    for (const fn of md_files) {
+        if (fn.split(".").reverse()[0] == "sm") {
+            cards_info[i.toString().padStart(padstart_len, "0") + ".sm"] =
+                mdConverter.makeHtml(await readFile(path.resolve(cards_path, fn + ".md")));
+        } else {
+            cards_info[i.toString().padStart(padstart_len, "0") + ".lg"] =
+                mdConverter.makeHtml(await readFile(path.resolve(cards_path, fn + ".md")));
+        }
+        i++;
+    }
+
     await ctx.render("index", {
-        title: USER_CONFIG.web.title,
-        page_id: "server_properties",
+        page_id: "homepage",
         lang: "zh_cn",
         sidebar_info: require("../settings/sidebar.info.json"),
-        server_properties_reference: require("../settings/server.properties.reference.json"),
-        server_properties: await getMCServerProperties()
+        translate: require("../settings/translate/zh_cn.json"),
+        account_info: {
+            nickname: nickname,
+            option: !!nickname ? "logout" : "login",
+            online: !!nickname
+        },
+        cards_info: cards_info
     });
 })
 

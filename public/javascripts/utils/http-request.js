@@ -16,6 +16,7 @@ class HttpRequest {
         this.responseType = request_info.responseType || "text";
         this.onload = request_info.onload || (function () { });
         this.callback = request_info.callback || (function () { });
+        this.error = request_info.error || (function () { });
         this.contentType = request_info.contentType || "application/x-www-form-urlencoded";
         this.data = request_info.data || null;
         this.method = request_info.method.toUpperCase() || "GET";
@@ -42,11 +43,12 @@ class HttpRequest {
         xhr.responseType = this.responseType;
         xhr.onload = this.onload;
         const callback = this.callback;
+        const error = this.error;
         xhr.onreadystatechange = function () {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 if (xhr.status == 200 || xhr.status == 0) {
                     callback(xhr);
-                }
+                } else error(xhr);
             }
         }
         return xhr.send();
@@ -63,11 +65,12 @@ class HttpRequest {
         xhr.responseType = this.responseType;
         xhr.onload = this.onload;
         const callback = this.callback;
+        const error = this.error;
         xhr.onreadystatechange = function () {
             if (xhr.readyState == XMLHttpRequest.DONE) {
                 if (xhr.status == 200 || xhr.status == 0) {
                     callback(xhr);
-                }
+                } else error(xhr);
             }
         }
         return xhr.send(data || null);
@@ -80,6 +83,6 @@ class HttpRequest {
         else if (this.method == "GET")
             return this.get(this.data || undefined)
         else if (this.method == "POST")
-            return this.post(thiis.data || undefined)
+            return this.post(this.data || undefined)
     }
 }

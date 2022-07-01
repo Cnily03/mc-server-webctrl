@@ -1,0 +1,11 @@
+{
+  "info.login": "登录",
+  "info.logout": "登出",
+  "browser.title": "Minecraft 服务器 Web 控制端",
+  "page.index.welcome": "欢迎来到 Minecraft Web 管理面板！",
+  "page.index.hello.online.title": "你好，%s！",
+  "page.index.hello.online.description": "请在左侧边栏选择相应的功能以控制服务器，以下是一些常用功能。",
+  "page.index.hello.offline.title": "你当前还未登录！",
+  "page.index.hello.offline.description": "请登录以使用该面板。",
+  "page.index.notice.title": "告示"
+}

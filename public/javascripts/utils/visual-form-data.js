@@ -18,7 +18,7 @@ class VisualFormData {
     }
     /**
      * Get the value via name.
-     * @param {String} key - Name in the form
+     * @param {String} name - Name in the form
      * @returns The value to the name.
      */
     get(name) {
@@ -28,10 +28,11 @@ class VisualFormData {
     }
     /**
      * Change the value according to name.
-     * @param {String} key - Name in the form
+     * @param {String} name - Name in the form
+     * @param {any} value - The value to the name.
      * @returns The value to the name.
      */
-    var(name, value) {
+    set(name, value) {
         for (const key in this.fullData)
             if (this.fullData[key].name == name)
                 return this.fullData[key].value = value;

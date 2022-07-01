@@ -19,12 +19,14 @@
   "license": "MIT",
   "dependencies": {
     "colors": "^1.4.0",
+    "crypto": "^1.0.1",
     "ejs": "^3.1.8",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.1.1",
     "koa-static": "^5.0.0",
     "koa-views": "^8.0.0",
-    "rcon": "^1.1.0"
+    "rcon": "^1.1.0",
+    "showdown": "^2.1.0"
   }
 }
