@@ -39,7 +39,7 @@ const FormLogin = {
     }
 }
 const Token = {
-    MAX_AGE: 7 * 24 * 60 * 60
+    MAX_AGE: 7 * 24 * 60 * 60 * 1000
 }
 function verifyAccount(username, password_sha1, returnNickname = false) {
     for (const accountdata of USER_CONFIG.web.account) {
