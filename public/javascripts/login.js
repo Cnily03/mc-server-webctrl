@@ -29,12 +29,16 @@ window.addEventListener('DOMContentLoaded', () => {
             tip.show("<font style='color:#e85600;'>连接超时</font>");
         },
         failure: function () {
+            document.querySelector("form#login #username").classList.remove("is-success");
+            document.querySelector("form#login #password").classList.remove("is-success");
             document.querySelector("form#login #username").classList.add("is-error");
             document.querySelector("form#login #password").classList.add("is-error");
             document.querySelector("form#login #username").focus();
             tip.show("<font style='color:#e85600;'>用户名或密码错误</font>");
         },
         success: function () {
+            document.querySelector("form#login #username").classList.remove("is-error");
+            document.querySelector("form#login #password").classList.remove("is-error");
             document.querySelector("form#login #username").classList.add("is-success");
             document.querySelector("form#login #password").classList.add("is-success");
             tip.show("<font style='color:#32b643;'>登录成功</font>");
@@ -61,13 +65,27 @@ window.addEventListener('DOMContentLoaded', () => {
         onReqLogin = true;
 
         const form_data = new VisualFormData(document.querySelector("form#login"));
-        if (isLegal(form_data.get("username")) && isLegal(form_data.get("password"))) {
+        if (isLegal(form_data.getValue("username")) && isLegal(form_data.getValue("password"))) {
+            form_data.setValue("username", form_data.getValue("username"))
+            form_data.setValue("password", CryptoJS.SHA1(form_data.getValue("password")).toString());
+            form_data.rename("password", "password_sha1");
             new HttpRequest({
                 url: "/request/login/form",
                 method: "POST",
                 contentType: "text/plain",
                 responseType: "json",
-                data: window.btoa(encodeURIComponent(JSON.stringify(form_data.getJSONData()))),
+                data: CryptoJS.AES.encrypt(
+                    CryptoJS.enc.Utf8.parse(
+                        window.btoa(encodeURIComponent(JSON.stringify(form_data.getJSONData())))
+                    ), CryptoJS.enc.Utf8.parse(
+                        CryptoJS.MD5(window.location.href).toString().slice(0, 16)
+                    ), {
+                    iv: CryptoJS.enc.Utf8.parse(
+                        CryptoJS.MD5(window.location.href.split("").reverse().join("")).toString().slice(0, 16)
+                    ),
+                    mode: CryptoJS.mode.CBC
+                }
+                ).ciphertext.toString(),
                 callback: function (xhr) {
                     if (typeof xhr.response == "object" && Object.keys(xhr.response).includes("code")) {
                         switch (xhr.response.code) {
@@ -92,17 +110,15 @@ window.addEventListener('DOMContentLoaded', () => {
                     } else {
                         tip.unknown();
                     }
-                    document.querySelector("form#login #submit").classList.remove("loading");
-                    onReqLogin = false;
                 },
                 error: function (xhr) {
                     tip.unknown();
-                    document.querySelector("form#login #submit").classList.remove("loading");
-                    onReqLogin = false;
                 }
             }).send();
         } else {
             tip.failure();
         }
+        document.querySelector("form#login #submit").classList.remove("loading");
+        onReqLogin = false;
     })
 })

@@ -26,7 +26,7 @@ function decodeUTF8(text) { return eval("`" + text + "`") }
 window.addEventListener('DOMContentLoaded', () => {
     document.querySelector("#submit-server-properties").addEventListener("click", function () {
         const form_data = new VisualFormData(document.querySelector("#form-server-properties"));
-        form_data.set("generator-settings", form_data.get("generator-settings").replace(/\r?\n/g, ""))
+        form_data.setValue("generator-settings", form_data.getValue("generator-settings").replace(/\r?\n/g, ""))
         const form_json = form_data.getJSONData();
         new HttpRequest({
             url: "/request/changeServerProperties",

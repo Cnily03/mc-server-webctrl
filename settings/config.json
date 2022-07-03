@@ -1,10 +1,10 @@
 {
   "server": {
-    "port": 2022
+    "port": 80
   },
   "minecraft": {
     "server": {
-      "rootDir": "/home/mc-server-dir",
+      "rootDir": "D:/Games/Minecraft/Servers/mcdr-test/server",
       "local_host": "127.0.0.1",
       "rcon": {
         "host": "127.0.0.1",
@@ -22,13 +22,6 @@
       "key": "0123456789abcdef",
       "iv": "0123456789abcdef",
       "algorithm": "aes-128-cbc"
-    },
-    "account": [
-      {
-        "nickname": "Admin",
-        "username": "admin",
-        "password_sha1": "7c4a8d09ca3762af61e59520943dc26494f8941b"
-      }
-    ]
+    }
   }
 }

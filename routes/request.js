@@ -7,6 +7,7 @@ const Rcon = require("rcon/node-rcon");
 const root = "/request";
 
 const USER_CONFIG = require("../settings/config.json");
+const WEB_ACCOUNT = require("../settings/web-account.json")
 
 /** Login */
 const FormLogin = {
@@ -42,9 +43,9 @@ const Token = {
     MAX_AGE: 7 * 24 * 60 * 60 * 1000
 }
 function verifyAccount(username, password_sha1, returnNickname = false) {
-    for (const accountdata of USER_CONFIG.web.account) {
+    for (const accountdata of WEB_ACCOUNT) {
         if (
-            username == accountdata.username &&
+            username.toLowerCase() == accountdata.username.toLowerCase() &&
             password_sha1 == accountdata.password_sha1
         ) {
             if (returnNickname) return accountdata.nickname;
@@ -62,28 +63,44 @@ function createToken(username, password_sha1, isRemember) {
     )
 }
 global.verifyToken = function (ctx, returnNickname = false) {
-    const token = ctx.cookies.get("token") || "";
-    const token_info_array = token ? crypto.aes.decode(
-        token,
-        USER_CONFIG.web.cookie_aes.key,
-        USER_CONFIG.web.cookie_aes.iv,
-        USER_CONFIG.web.cookie_aes.algorithm
-    ).split("|") : [];
-    // Token格式正确并且账密正确
-    if (token_info_array.length == 4) {
-        const result = verifyAccount(token_info_array[0], token_info_array[1], returnNickname);
-        if (result) {
-            // 更新 Cookie
-            const isRemember = { "true": true, "false": false }[token_info_array[2]] || false;
-            ctx.cookies.set("token", createToken(token_info_array[0], token_info_array[1], isRemember), {
-                maxAge: isRemember ? Token.MAX_AGE : -1,
+    try {
+        const token = ctx.cookies.get("token") || "";
+        const token_info_array = token ? crypto.aes.decode(
+            token,
+            USER_CONFIG.web.cookie_aes.key,
+            USER_CONFIG.web.cookie_aes.iv,
+            USER_CONFIG.web.cookie_aes.algorithm
+        ).split("|") : [];
+        // Token格式正确并且账密正确
+        if (token_info_array.length == 4) {
+            const result = verifyAccount(token_info_array[0], token_info_array[1], returnNickname);
+            if (result) {
+                // 更新 Cookie
+                const isRemember = { "true": true, "false": false }[token_info_array[2]] || false;
+                ctx.cookies.set("token", createToken(token_info_array[0], token_info_array[1], isRemember), {
+                    maxAge: isRemember ? Token.MAX_AGE : -1,
+                    signed: true,
+                    path: "/",
+                    overwrite: true
+                })
+                return result;
+            }
+        } else {
+            ctx.cookies.set("token", null, {
+                maxAge: 0,
                 signed: true,
                 path: "/",
                 overwrite: true
-            })
-            return result;
+            });
+            return false;
         }
-    } else {
+    } catch (e) {
+        ctx.cookies.set("token", null, {
+            maxAge: 0,
+            signed: true,
+            path: "/",
+            overwrite: true
+        });
         return false;
     }
 }
@@ -92,7 +109,7 @@ global.verifyTokenAndRedirect = function (ctx, returnNickname = false) {
     if (!result)
         ctx.redirect(
             "/login?from=" +
-            encodeURIComponent(ctx.request.protocol + "://" + ctx.request.header.host + ctx.request.url)
+            encodeURIComponent(ctx.request.header.referer)
         );
     return result;
 }
@@ -107,8 +124,15 @@ global.verifyTokenForRequest = function (ctx) {
 }
 router.post(root + "/login/form", async (ctx, next) => {
     try {
-        const userdata = JSON.parse(decodeURIComponent(crypto.base64.decode(ctx.request.body)));
-        userdata.password_sha1 = crypto.sha1.encode(userdata.password);
+        const aes_key = crypto.md5(ctx.request.header.referer).slice(0, 16);
+        const aes_iv = crypto.md5(ctx.request.header.referer.split("").reverse().join("")).slice(0, 16);
+        const userdata = JSON.parse(
+            decodeURIComponent(crypto.base64.decode(
+                crypto.aes.decode(ctx.request.body, aes_key, aes_iv, "aes-128-cbc")
+            ))
+        );
+        // userdata.password_sha1 = crypto.sha1(userdata.password);
+        userdata.password_sha1 = userdata.password_sha1 || "";
         var isLoginSuccess = verifyAccount(userdata.username, userdata.password_sha1)
         if (isLoginSuccess) {
             ctx.cookies.set(

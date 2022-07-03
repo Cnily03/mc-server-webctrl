@@ -52,20 +52,20 @@ const rsa = {
     }
 }
 
-function encodeSha256(str) {
+function sha256(str) {
     var sha256 = crypto.createHash("sha256");
     var code = sha256.update(str).digest("hex");
     return code;
 }
 
-function encodeSha128(str) {
+function sha128(str) {
     var sha128 = crypto.createHash("sha128");
     var code = sha128.update(str).digest("hex");
     return code;
 }
 
 
-function encodeSha1(str) {
+function sha1(str) {
     var sha1 = crypto.createHash("sha1");
     var code = sha1.update(str).digest("hex");
     return code;
@@ -81,16 +81,8 @@ module.exports = {
     base64: base64,
     aes: aes,
     rsa: rsa,
-    sha256: {
-        encode: encodeSha256
-    },
-    sha128: {
-        encode: encodeSha128
-    },
-    sha1: {
-        encode: encodeSha1
-    },
-    md5: {
-        decode: encodeMd5
-    }
+    sha256: sha256,
+    sha128: sha128,
+    sha1: sha1,
+    md5: encodeMd5
 };
