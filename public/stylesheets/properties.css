@@ -1,3 +1,9 @@
+@media (pointer: coarse) {
+    body {
+        margin-bottom: 40vh;
+    }
+}
+
 .tooltip-full::after {
     white-space: break-spaces;
     width: max-content;
