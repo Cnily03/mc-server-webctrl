@@ -87,7 +87,8 @@ window.addEventListener('DOMContentLoaded', () => {
                         console.log("> " + cmd);
                         console.log(xhr.response.msg);
                         // outputCmd(cmd);
-                        output(xhr.response.msg, xhr.response.code)
+                        if (xhr.response.msg)
+                            output(xhr.response.msg, xhr.response.code)
                         if (xhr.response.isMemory)
                             rconCmdMemories.push(cmd);
                     }
