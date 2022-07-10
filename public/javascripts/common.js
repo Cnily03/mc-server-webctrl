@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 url: "/logout",
                 method: "GET",
                 responseType: "json",
-                callback: function (xhr) {
+                success: function (xhr) {
                     if (xhr.response.code == 200)
                         window.location = "/login";
                 }

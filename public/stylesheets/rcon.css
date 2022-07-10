@@ -16,10 +16,20 @@
     font-size: 0.75rem;
     overflow-y: auto;
 }
+.output-window .output-cmd,
 .output-window .output-msg {
-    width: 100%;
+    width: max-content;
     height: fit-content;
-    display: inline-block;
+    display: block;
+    overflow: hidden;
+    word-break: normal;
+    white-space: nowrap;
+}
+.output-window.break-word .output-cmd,
+.output-window.break-word .output-msg {
+    width: 100%;
+    word-break: break-all;
+    white-space: break-spaces;
 }
 .output-window .output-cmd::before {
     content: "> ";

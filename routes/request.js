@@ -276,7 +276,18 @@ const mcrcon = {
         }
     },
     cmdMemories: [],
-    notAllowedMemoryCode: [-100, 0]
+    notAllowedMemoryCode: [-100, 0],
+    parseMsg: function (cmd, msg = "") {
+        switch (cmd) {
+            case "help":
+                return msg.replace(RegExp("([^/])(/)", "g"), "$1\n$2");
+            // break;
+            default:
+                return msg;
+            // break;
+        }
+        // return msg;
+    }
 }
 async function sendCmdToMc(cmd) {
     if (!McRcon.hasAuthed) {
@@ -305,7 +316,7 @@ async function sendCmdToMc(cmd) {
         const intervalId_2 = setInterval(function () {
             if (originalMcRconResponse != lastMcRconResponse) {
                 clearInterval(intervalId_2);
-                resolve(lastMcRconResponse);
+                resolve(mcrcon.parseMsg(cmd, lastMcRconResponse));
                 lastMcRconResponse = undefined;
             }
         }, 10)

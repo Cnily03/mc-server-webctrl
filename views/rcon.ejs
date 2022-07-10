@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
     <link rel="stylesheet" href="/stylesheets/common.css">
     <link rel="stylesheet" href="/stylesheets/rcon.css">
+    <script src="/javascripts/utils/config-cookie.js"></script>
     <script src="/javascripts/utils/http-request.js"></script>
     <script src="/javascripts/utils/visual-form-data.js"></script>
     <script src="/javascripts/common.js"></script>
@@ -62,17 +63,27 @@
     <!-- Main -->
     <div class="page-box">
         <div id="output-window" class="output-window"></div>
-        <div id="rcon-input" class="input-group has-icon-left">
+        <div id="rcon-input" class="input-group has-icon-left" style="margin-bottom: .5rem;">
             <input class="form-input" type="text" placeholder="在此键入指令">
             <i class="form-icon icon icon-arrow-right"></i>
             <button class="btn btn-primary">发送</button>
         </div>
-        <span class="form-switch" id="option_clear-input">
-            <label>
-                <input type="checkbox" checked><i class="form-icon"></i>
-            </label>
-            <span>指令发送后清空输入框</span>
-        </span>
+        <!-- Options -->
+        <iframe name="invisible" style="display:none"></iframe>
+        <form action="about:blank" id="rcon-option" target="invisible">
+            <span class="form-switch" id="option_break-word">
+                <label>
+                    <input type="checkbox" name="break-word"><i class="form-icon"></i>
+                </label>
+                <span>自动换行</span>
+            </span>
+            <span class="form-switch" id="option_clear-input">
+                <label>
+                    <input type="checkbox" name="clear-input" checked><i class="form-icon"></i>
+                </label>
+                <span>指令发送后清空输入框</span>
+            </span>
+        </form>
     </div>
 </body>
 

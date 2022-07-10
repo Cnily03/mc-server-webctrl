@@ -86,7 +86,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     mode: CryptoJS.mode.CBC
                 }
                 ).ciphertext.toString(),
-                callback: function (xhr) {
+                success: function (xhr) {
                     if (typeof xhr.response == "object" && Object.keys(xhr.response).includes("code")) {
                         switch (xhr.response.code) {
                             case 200: {

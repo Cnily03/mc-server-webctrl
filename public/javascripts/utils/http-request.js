@@ -15,7 +15,9 @@ class HttpRequest {
         this.url = request_info.url ? request_info.url.replace(/\\/g, "/") : this.url;
         this.responseType = request_info.responseType || "text";
         this.onload = request_info.onload || (function () { });
+        this.callback_pre = request_info.callback_pre || (function () { });
         this.callback = request_info.callback || (function () { });
+        this.success = request_info.success || (function () { });
         this.error = request_info.error || (function () { });
         this.contentType = request_info.contentType || "application/x-www-form-urlencoded";
         this.data = request_info.data || null;
@@ -42,13 +44,17 @@ class HttpRequest {
         xhr.open("GET", f_url, true);
         xhr.responseType = this.responseType;
         xhr.onload = this.onload;
+        const callback_pre = this.callback_pre;
         const callback = this.callback;
+        const success = this.success;
         const error = this.error;
         xhr.onreadystatechange = function () {
             if (xhr.readyState == XMLHttpRequest.DONE) {
+                callback_pre(xhr);
                 if (xhr.status == 200 || xhr.status == 0) {
-                    callback(xhr);
+                    success(xhr);
                 } else error(xhr);
+                callback(xhr);
             }
         }
         return xhr.send();
@@ -64,13 +70,17 @@ class HttpRequest {
         );
         xhr.responseType = this.responseType;
         xhr.onload = this.onload;
+        const callback_pre = this.callback_pre;
         const callback = this.callback;
+        const success = this.success;
         const error = this.error;
         xhr.onreadystatechange = function () {
             if (xhr.readyState == XMLHttpRequest.DONE) {
+                callback_pre(xhr);
                 if (xhr.status == 200 || xhr.status == 0) {
-                    callback(xhr);
+                    success(xhr);
                 } else error(xhr);
+                callback(xhr);
             }
         }
         return xhr.send(data || null);
