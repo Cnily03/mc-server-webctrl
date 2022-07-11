@@ -132,6 +132,8 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         option.UPDATE_COOKIE();
     })
+    // Option 发送指令后清空输入框
+    option.clearInput.addEventListener("click", option.__UPDATE_FUNC.clearInput = option.UPDATE_COOKIE);
 
     // 更新 option（已根据 Cookie 显示）
     option.UPDATE();
