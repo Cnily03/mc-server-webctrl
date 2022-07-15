@@ -24,6 +24,7 @@ function outputCmd(cmd) {
         cmd = cmd.replace(RegExp(key, "g"), msgReplaceMap[key]);
     const outputEl = document.querySelector("#output-window");
     outputEl.innerHTML += `<div class="output-cmd">${cmd}</div>`;
+    outputEl.scrollTop = outputEl.scrollHeight;
 }
 // 输出信息到 output-window
 function output(msg, code = 200) {
@@ -41,7 +42,8 @@ function output(msg, code = 200) {
         }
     }
     const outputEl = document.querySelector("#output-window");
-    outputEl.innerHTML += `<div class="output-msg"${getStyle(code)}>${msg}</div>`
+    outputEl.innerHTML += `<div class="output-msg"${getStyle(code)}>${msg}</div>`;
+    outputEl.scrollTop = outputEl.scrollHeight;
 }
 
 var rconCmdMemories = [];

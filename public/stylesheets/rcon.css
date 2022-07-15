@@ -16,6 +16,20 @@
     font-size: 0.75rem;
     overflow-y: auto;
 }
+.output-window::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.output-window::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.25);
+}
+.output-window::-webkit-scrollbar-thumb:hover,
+.output-window::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.35);
+}
+.output-window::-webkit-scrollbar-corner {
+    background-color: rgba(255, 255, 255, 0);
+}
 .output-window .output-cmd,
 .output-window .output-msg {
     width: max-content;
