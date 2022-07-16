@@ -42,7 +42,8 @@
 .output-window.break-word .output-cmd,
 .output-window.break-word .output-msg {
     width: 100%;
-    word-break: break-word;
+    word-break: break-all;
+    word-wrap: break-word;
     white-space: break-spaces;
 }
 .output-window .output-cmd::before {

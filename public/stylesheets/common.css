@@ -5,6 +5,7 @@ body {
     padding-top: 4rem;
     padding-bottom: 8px;
     margin-right: 8px;
+    background-color: #f9f9f9;
 }
 @media screen and (min-width: 680px) {
     body {
