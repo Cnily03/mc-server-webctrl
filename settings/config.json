@@ -4,12 +4,12 @@
   },
   "minecraft": {
     "server": {
-      "rootDir": "D:/Games/Minecraft/Servers/mcdr-test/server",
-      "local_host": "127.0.0.1",
+      "root_dir": "D:/Games/Minecraft/Servers/mcdr-test/server",
+      "localhost": "127.0.0.1",
       "rcon": {
         "host": "127.0.0.1",
         "port": 25575,
-        "password": "password"
+        "password": "rcon_password"
       }
     }
   },

@@ -207,7 +207,7 @@ router.post(root + "/changeServerProperties", async (ctx, next) => {
             lineTextArray.push(property_name + "=" + encodeUTF8(property_value.toString()))
         }
         const server_properties = lineTextArray.join("\n");
-        const server_properties_path = path.resolve(USER_CONFIG.minecraft.server.rootDir, "./server.properties");
+        const server_properties_path = path.resolve(USER_CONFIG.minecraft.server.root_dir, "./server.properties");
         await new Promise(resolve => {
             fs.writeFile(server_properties_path, server_properties, err => {
                 if (err) {

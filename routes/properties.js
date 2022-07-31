@@ -9,7 +9,7 @@ const USER_CONFIG = require("../settings/config.json");
 function decodeUTF8(text) { return eval("`" + text + "`") }
 
 async function getMCServerProperties() {
-    const server_properties_path = path.resolve(USER_CONFIG.minecraft.server.rootDir, "./server.properties");
+    const server_properties_path = path.resolve(USER_CONFIG.minecraft.server.root_dir, "./server.properties");
     return await new Promise((resolve) => {
         fs.readFile(server_properties_path, 'utf8', (err, data) => {
             if (err) {
